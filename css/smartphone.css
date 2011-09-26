@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+/* iphone4 */
+@media screen and (max-width: 980px) {
+
+ 
+}
+
+/* smartphone */
+@media screen and (max-width: 650px) {
+html {
+  -webkit-text-size-adjust: none;
+}
+
+#header .layout-inner,
+#footer .layout-inner,
+#contents{
+  width: 90%;
+}
+
+#before_join .dmy_grid{
+  display: none;
+}
+#before_join .main_grid{
+  width: 90%;
+  text-align:left;
+}
+#before_join #nick{
+  width: auto;
+}
+#before_join #colorful{
+  width: 80%;
+}
+
+#user .main_grid{
+  width: 90%;
+}
+#user #tweet{
+  width: 400px;
+}
+#user canvas{
+}
+
+ 
+}

@@ -1,0 +1,18 @@
+@charset "UTF-8";
+/* -----------------------------
+  FUNCTION
+  author:
+  update:
+------------------------------*/
+
+
+/* 背景色を指定すると白or黒のcolorを返す
+------------------------------------------- */
+@mixin suitable-text-color($bgcolor) {
+    @if lightness($bgcolor) < 60 {
+        color: #fff;
+    } @else {
+        color: #000;
+    }
+}
+

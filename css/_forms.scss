@@ -1,0 +1,84 @@
+@charset "UTF-8";
+/* -----------------------------
+  FORM
+  author:
+  update:
+------------------------------*/
+
+$color_light : lighten($color_main,30%);
+
+input[type="text"],
+input[type="password"],
+textarea{
+	border: 1px solid #bebebe;
+	@include border-radius(2px);
+	padding: 0.6em 0.3em;
+	width: 300px;
+	max-width: 500px;
+	@include linear-gradient(#f7f7f7,#fff);
+}
+input[type="text"]:hover,
+input[type="password"]:hover,
+textarea:hover{
+	border: 1px solid #ccc;
+	background: #fff;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus{
+	border: 1px solid $color_main;
+	background-color: #fff;
+}
+
+input[disabled]{
+	background-color: #efefef;
+	&:hover{
+		background-color: #efefef;
+	}
+}
+
+.ime-off{
+	ime-mode: inactive;
+
+}
+.ime-on{
+	ime-mode: active;
+}
+
+form{
+	label{
+		margin: 0 1em 0.5em 0;
+
+		&:hover{
+			background-color: $color_light;
+		}
+		span{
+			margin-left: 0.3em;
+		}
+	}
+}
+
+input[type="checkbox"]:checked,
+input[type="radio"]:checked{
+	&~span{
+		font-weight: bold;
+	}
+}
+select{
+	padding: 2px;
+}
+
+/*
+<label><input type="checkbox"><span>label</span></label>
+*/
+
+
+/* formActionArea
+--------------------------------------------------------*/
+.actionArea{
+	background: #f6f6f6;
+	border-top: 1px solid $color_main;
+	padding: 0.5em 0;
+}
+
+

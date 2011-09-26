@@ -1,0 +1,117 @@
+@charset "UTF-8";
+/*-----------------------------------------------------
+  CSS3 properties
+  for IE, read http://www.smashingmagazine.com/2010/04/28/css3-solutions-for-internet-explorer/
+-------------------------------------------------------------- */
+
+$css3-ie-support: 0 !default;
+
+
+/* 角丸
+  @param $size
+  @ex)include border-radius(4px);
+-------------------------------------------------------- */
+
+//4つ角
+@mixin border-radius($size) {
+  -webkit-border-radius: $size;
+  -moz-border-radius: $size;
+  border-radius: $size;
+}
+
+//左上+右上
+@mixin tabtop-border-radius($size) {
+  -moz-border-radius: $size $size 0 0;
+  -webkit-border-radius: $size $size 0 0;
+  border-radius: $size $size 0 0;
+  border-bottom:none;
+}
+
+//左下+右下
+@mixin tabbtm-border-radius($size) {
+  -moz-border-radius: 0 0 $size $size;
+  -webkit-border-radius: 0 0 $size $size;
+  border-radius: 0 0 $size $size;
+  border-top:none;
+}
+
+/* ボックス影
+  @param $shadow
+  ex)@include box-shadow(RIGHT,BOTTOM,BLUR,COLOR);
+--------------------------------------------------------*/
+@mixin box-shadow($shadow) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+
+/* グラデーション(縦2色)
+  @param $topColor
+  @param $bottomColor
+  ex)@include linear-gradient(#000,#fff);
+--------------------------------------------------------*/
+@mixin linear-gradient($topColor, $bottomColor) {
+  background-color: $bottomColor;
+  background-image: -moz-linear-gradient(top, $topColor, $bottomColor);
+  background-image: -webkit-gradient(linear, left top, left bottom, from($topColor), to($bottomColor));
+  
+  @if $css3-ie-support == 1 {
+    $ieTopColor: rgb(red($topColor), green($topColor), blue($topColor));
+    $ieBottomColor: rgb(red($bottomColor), green($bottomColor), blue($bottomColor));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$ieTopColor}', endColorstr='#{$ieBottomColor}'); // IE6 & IE7
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$ieTopColor}', endColorstr='#{$ieBottomColor}')"; // IE8
+  }
+}
+
+/* グラデーション(縦2色+TOPハイライト)
+  @param $topColor
+  @param $bottomColor
+  ex)@include linear-gradient-hilight(#000,#fff);
+--------------------------------------------------------*/
+@mixin linear-gradient-hilight($topColor, $bottomColor) {
+  background-color: $bottomColor;
+  background-image: -moz-linear-gradient(top, $topColor, #fff 1%, $topColor 5%, $bottomColor);
+  background-image: -webkit-gradient(linear, left top, left bottom, from($topColor), color-stop(1%,#fff), color-stop(5%,$topColor), to($bottomColor));
+  
+  @if $css3-ie-support == 1 {
+    $ieTopColor: rgb(red($topColor), green($topColor), blue($topColor));
+    $ieBottomColor: rgb(red($bottomColor), green($bottomColor), blue($bottomColor));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$ieTopColor}', endColorstr='#{$ieBottomColor}'); // IE6 & IE7
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$ieTopColor}', endColorstr='#{$ieBottomColor}')"; // IE8
+  }
+}
+
+@mixin transition($transition){
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -webkit-transition: $transition;
+  transition: $transition; 
+}
+
+@mixin transform($transform){
+  -moz-transform: $transform;
+  -webkit-transform: $transform;
+  -o-transform: $transform;
+  -ms-transform: $transform;
+  transform: $transform;
+}
+
+@mixin transform-origin($origin) {
+  -moz-transform-origin: $origin;
+  -webkit-transform-origin: $origin;
+  -o-transform-origin: $origin;
+  -ms-transform-origin: $origin;
+  transform-origin: $origin;
+}
+
+// opacity is actually a CSS2 property ;)
+@mixin opacity($value) {
+  opacity: $value;
+  
+  @if $css3-ie-support == 1 {
+    filter: alpha(opacity=$value*100);
+    -ms-filter: "alpha(opacity=$value*100)";
+    zoom: 1;
+  }
+}
+

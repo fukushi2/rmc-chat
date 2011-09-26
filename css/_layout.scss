@@ -1,0 +1,223 @@
+@charset "UTF-8";
+/* -----------------------------
+  PAGE LAYOUT
+  author:
+  update:
+------------------------------*/
+
+html{
+	background-color: darken($color_main,50%);
+//フッターの色と合わせればコンテンツが短いときも色落ちしない
+}
+
+/* LAYOUT container
+--------------------------------------------------------*/
+
+#container {
+	background: #fff;
+	width: 100%;
+	border-top: 4px solid $color_main;
+}
+
+
+/* LAYOUT header
+--------------------------------------------------------*/
+
+#header{
+	color: #fff;
+	@include linear-gradient(#333,#474747);
+
+	.layout-inner{
+		@include grid_container;//960px container
+		@include clearfix;
+		margin: 0 auto;
+		padding: 8px 0 20px 0;
+	}
+
+	#logo{
+		float: left;
+		span{
+			display: block;
+			font-size:  $yui-10px;
+		}
+		a{
+			text-decoration: none;
+			color: #fff;
+		}
+	}
+
+	#manage{
+		float: right;
+
+		li{
+			display: inline;
+			margin-left: 1em;
+		}
+
+		a{
+			color:#fff;
+			text-decoration:none;
+			border-bottom:1px dashed #ccc;
+			&:hover{
+				border-bottom:1px solid #ccc;
+				background:#333;
+			}
+		}
+	}
+}//header
+
+
+
+/* LAYOUT contents
+--------------------------------------------------------*/
+#contents{
+	background: #fff;
+	@include clearfix;
+	@include grid_container;//960px container
+	margin-top: 1em;
+	margin-bottom: 1em;
+	min-height: 350px;
+}
+
+#before_join{
+  padding-top: 3em;
+  .dmy_grid{
+    @include grid(3);
+  }
+  .main_grid{
+    @include grid(6);
+    text-align: center;
+  }
+  #nick{
+    width: 250px;
+  }
+  .box{
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    float: left;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  #colorful{
+    @include clearfix;
+  }
+}//before_join
+
+#user{
+  #nickname{
+  	@include grid(3);
+  }
+  .main_grid{
+    @include grid(9);
+  }
+  #tweet{
+    width: 482px;
+    height: 56px;
+  }
+  #reload_text{
+    display: none;
+  }
+  p{
+    span.time{
+      margin-left: 1em;
+      color: #999;
+    }
+  }
+  #mybox{
+    width: 48px;
+    height: 48px;
+  }
+}//user
+
+#screen{
+  .dmy_grid{
+    @include grid(1);
+  }
+  .main_grid{
+    @include grid(10);
+  }
+  .ko_tweet{
+    margin: 1em 0;
+    @include clearfix;
+    padding-bottom: 1em;
+  }
+  .image{
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+    float:left;
+  }
+  .message{
+    margin-left: 60px;
+    min-height: 48px;
+  }
+}
+
+.col1{
+  background-color:#ffbcbc;
+}
+.col2{
+  background-color:#ffe1bc;
+}
+.col3{
+  background-color:#f7ffbc;
+}
+.col4{
+  background-color:#cfffbc;
+}
+.col5{
+  background-color:#bcffea;
+}
+.col6{
+  background-color:#bcd2ff;
+}
+.col7{
+  background-color:#efbcff;
+}
+.col8{
+  background-color:#ffbce0;
+}
+.col9{
+  background-color:#bbbbbb;
+}
+.cola{
+  background-color:#efefef;
+}
+
+/* LAYOUT footer
+--------------------------------------------------------*/
+
+#footer{
+	border-top:1px solid $color_main;
+	@include clearfix;
+	@include linear-gradient(darken($color_main,20%),darken($color_main,50%));
+
+	.layout-inner{
+		@include grid_container;//960px container
+		margin: 0 auto;
+		padding: 2em 0;
+
+		li{
+			display: inline;
+			margin-right: 1em;
+		}
+
+	}
+
+	address{
+		font-size:  $yui-11px;
+		font-style: normal;
+	}
+
+	a{
+		@include suitable-text-color(darken($color_main,20%));
+		&:hover{
+			color: $color_main;
+		}
+	}
+
+}//footer
+
+
+

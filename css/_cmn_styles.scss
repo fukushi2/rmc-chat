@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+/* 変数定義
+========================*/
+$color_dark : darken($color_main,10%);
+
+@mixin font-family{
+	font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+}
+
+
+/* 共通リセット
+========================*/
+body{
+	text-align:left;
+	color: #333;
+}
+
+ul,li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+img, img a, a img{
+	padding: 0;
+	margin: 0;
+	border: 0;
+	border-style: none;
+	text-decoration: none;
+	vertical-align: top;
+}
+
+object, embed{
+	vertical-align: top;
+}
+
+div {
+	border-collapse: collapse;
+}
+
+
+
+
+
+/* 全ページ共通初期値
+========================*/
+
+.clear {
+	clear: both;
+}
+
+
+a{
+	&:link,
+	&:visited{
+		color: $color_dark;
+		text-decoration: underline;
+	}
+	&:hover {
+		color: $color_main;
+	}
+}
+
+
+hr {
+	color:#fff;
+	border-width: 1px 0px 0px 0px;
+	border-style: solid;
+	border-color: #ccc;
+	height:1px;
+	margin:12px 0;
+}
+
+
+

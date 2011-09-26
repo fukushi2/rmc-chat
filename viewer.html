@@ -1,0 +1,66 @@
+<!Doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js" type="text/javascript"></script>
+<script src="/socket.io/socket.io.js" type="text/javascript"></script>
+<script src="util.js" type="text/javascript"></script>
+<title>VIEWER</title>
+
+<style>
+p{ margin: 1em 0;border-bottom:1px solid #999;}
+
+span{ font-weight:bold;margin-right:1em;}
+</style>
+
+</head>
+<body>
+<h1>みんあのツイート</h1>
+<div id="show">
+<div id="top"></div>
+</div>
+
+
+<script>
+$(document).ready(function(){
+  var area = $("#show");
+  var view = $("#top");
+
+  var socket = io.connect('http://testfuku.no.de');
+  
+  socket.on('message', function (msg) {
+    //console.log(msg);
+    //var _ = area.html();
+    //area.html(_+"<p>"+util.toStaticHTML(msg)+"</p>");
+  });
+  
+  socket.on('tw', function (msg) {
+  //json{"name":"tw","args":[{"user":"16773128741082467463","msg":"bi"}]}
+    //console.log(msg);
+    text = msg["msg"].replace(util.urlRE, '<a target="_blank" href="$&">$&</a>');
+    text = text.replace(/(\n|\r)/g,"<br>");
+    $("<p><span>"+ util.toStaticHTML(msg["user"])+"</span>"+text+"</p>").insertAfter(view);
+  });
+  
+  //他ユーザの接続が切れた
+  socket.on('discon', function (msg) {
+    //console.log(msg);
+    $("<p>___"+util.toStaticHTML(msg["user"])+"&nbsp;さんの接続が切れました</p>").insertAfter(view);
+  });
+  
+  //他ユーザが参加した
+  socket.on('firstcon', function (msg) {
+    //console.log(msg);
+    $("<p>___"+util.toStaticHTML(msg["user"])+"&nbsp;さんが接続しました</p>").insertAfter(view);
+  });
+  
+  //自分の接続が切れた
+  socket.on('disconnect', function () {
+    area.html('<p>スクリーンの接続が切れました</p>');
+  });
+
+});
+
+</script>
+</body>
+</html>

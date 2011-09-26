@@ -1,0 +1,139 @@
+<!Doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js" type="text/javascript"></script>
+<script src="/socket.io/socket.io.js" type="text/javascript"></script>
+<script src="/js/util.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+<title>SCREEN</title>
+
+<style>
+div.image{
+  width:48px;
+  height:48px;
+  overflow:hidden;
+}
+.main_grid img{
+  width: 480px;
+  height :120px;
+  border: 1px solid #999;
+}
+
+
+span.u_name{ font-weight:bold;}
+span.time{ color: #999;}
+</style>
+
+</head>
+<body>
+<div id="container">
+
+<div id="header" data-role="header" role="banner">
+<div class="layout-inner">
+<div id="logo">
+<a href="/"><img src="/logo.png" alt="" width="85" height="32" />
+<span>node.jsリアルタイムコメントスクリーン</span></a></div>
+<div id="manage">
+<ul>
+<li id="usrs"></li>
+</ul>
+</div>
+</div>
+<!-- /header --></div>
+
+
+<div id="contents">
+<div id="screen">
+<div class="dmy_grid">&nbsp;</div>
+<div class="main_grid">
+  <div id="top"></div>
+  <p class="text-gray">&raquo;接続中...</p>
+</div>
+<div class="dmy_grid">&nbsp;</div>
+</div>
+<!-- /contents --></div>
+
+<div id="footer" data-role="footer" role="contentinfo">
+<div class="layout-inner">
+<ul><li id="mem"></li></ul>
+<address>copyright&copy;RECRUIT MEDIA COMMUNICATIONS.</address>
+</div>
+<!-- /footer --></div>
+
+<!-- /container --></div>
+
+
+
+<script>
+$(document).ready(function(){
+  var area = $("#screen");
+  var view = $("#top");
+
+  var socket = io.connect('http://testfuku.no.de');
+  socket.emit('join',{"nam":"screen","col":"null"});
+  socket.on('first_connection', function (msg) {
+    $("<p class='text-gray'>&raquo;スクリーンが接続されました</p>").insertAfter(view);
+  });
+  
+  //コメントを受け付けた
+  socket.on('tw', function (msg) {
+  //json{"name":"tw","args":[{"user":"16773128741082467463","msg":"bi"}]}
+    //console.log(msg);
+    var text = msg["msg"].replace(util.urlRE, '<a target="_blank" href="$&">$&</a>');
+    text = text.replace(/(\n|\r)/g,"<br>");
+    $("<div class='ko_tweet'><div class='image "+msg["col"]+"'></div><div class='message'><span class='u_name'>"+ util.toStaticHTML(msg["user"])+"</span><br>"+ text + "<br><span class='time'>"+ util.timeString(new Date)+"</span></div></div>").insertAfter(view);
+  });
+  
+  //お絵描きを受け付けた
+  socket.on('oekaki', function (msg) {
+    var _id = "i_"+ Math.round(Math.random()*1E9);
+    $("<div class='ko_tweet'><div class='image "+msg["col"]+"'></div><div class='message'><span class='u_name'>"+ util.toStaticHTML(msg["user"])+"</span><br><img id="+ _id +" /><br><span class='time'>"+ util.timeString(new Date)+"</span></div></div>").insertAfter(view);
+    $(("#"+_id)).attr("src",msg["msg"]);
+  });
+  
+  //他ユーザの接続が切れた
+  socket.on('discon', function (msg) {
+    //console.log(msg);
+    if(!msg["user"]) return;
+    $("<p class='text-gray'>&raquo;"+util.toStaticHTML(msg["user"])+"さんの接続が切れました</p>").insertAfter(view);
+  });
+  
+  //他ユーザが参加した
+  socket.on('user_add', function (msg) {
+    //console.log(msg);
+    $("<p class='text-gray'>&raquo;"+util.toStaticHTML(msg["user"])+"さんが接続しました</p>").insertAfter(view);
+  });
+  
+  //自分の接続が切れた
+  socket.on('disconnect', function () {
+    $("<p class='text-gray'>&raquo;スクリーンの接続が切れました</p>").insertAfter(view);
+    socket.emit('join',"screen");
+    console.log("自分の接続がきれました");
+  });
+  //メッセージを受けた(使わない)
+  //socket.on('message', function (msg) {});
+  
+  //ユーザ数とメモリを更新（送信）
+  setInterval(function () {
+    var now = new Date();
+    socket.emit('condition',"memuser");
+  }, 5000);
+  
+  //ユーザ数とメモリを更新(受信)
+  socket.on('condition', function (msg) {
+    //console.log(msg);
+    var m = String(Math.round(msg["mem"]/1024/1024));
+    var u = String(msg["user"]);
+    $("#mem").html("サーバメモリ：" + util.toStaticHTML(m)+"MB使用");
+    $("#usrs").html("参加者：" + util.toStaticHTML(u) + "人");
+  });
+
+});
+
+</script>
+
+</body>
+</html>

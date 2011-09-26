@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+/* import common utility
+  ユーザはこの内部ファイルは触らない
+--------------------------------------------------------*/
+@import "lib/normalize","lib/clearfix","lib/css3","lib/yui2";
+@import "lib/960gs";
+@import "lib/function";
+
+
+/* SETTING
+  サイトのテーマカラーを設定する
+--------------------------------------------------------*/
+$color_main   : #57d5ff; //メイン色（リンク）
+$color_effect : #59D500; //さし色
+$color_border : #ccc;    //ボーダー
+
+
+/* import common style and layout
+  サイトのテーマスタイル
+--------------------------------------------------------*/
+@import "cmn_styles";
+@import "typography";
+@import "buttons";
+@import "forms";
+@import "layout";
+
+
+// write your own style below or import your own sass files.
+
+

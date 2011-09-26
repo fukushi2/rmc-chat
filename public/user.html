@@ -1,0 +1,97 @@
+<!Doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=480px, initial-scale=0.8, user-scalable=no">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js" type="text/javascript"></script>
+<script src="/socket.io/socket.io.js" type="text/javascript"></script>
+
+<script src="/js/util.js" type="text/javascript"></script>
+<script src="/js/client.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="/css/smartphone.css" />
+<style>
+canvas{border:1px solid #06c;}
+#before_join .clicked{border:2px solid #000;}
+#user img{border: 1px solid #ccc;}
+</style>
+<title>client</title>
+</head>
+<body>
+<div id="container">
+
+<div id="header" data-role="header" role="banner">
+<div class="layout-inner">
+<div id="logo">
+<a href="/"><img src="/logo.png" alt="" width="85" height="32" />
+<span>node.jsリアルタイムコメント</span></a></div>
+<div id="manage"></div>
+</div>
+<!-- /header --></div>
+
+
+<div id="contents">
+<div id="before_join">
+<div class="dmy_grid">&nbsp;</div>
+<div class="main_grid">
+  <div id="loading_text"></div>
+  <input type="text" maxlength="20" id="nick" placeholder="ニックネーム" class="ime-off" />
+  <br /><br />
+  <input type="button" id="nick_btn" value="参加する" class="btn"  />
+  <br /><br />
+  <div id="colorful">
+  <p>イメージ色を選択(オプション)</p>
+  <div class="box col1" data-color="col1"></div>
+  <div class="box col2" data-color="col2"></div>
+  <div class="box col3" data-color="col3"></div>
+  <div class="box col4" data-color="col4"></div>
+  <div class="box col5" data-color="col5"></div>
+  <div class="box col6" data-color="col6"></div>
+  <div class="box col7" data-color="col7"></div>
+  <div class="box col8" data-color="col8"></div>
+  <div class="box col9" data-color="col9"></div>
+  <div class="box cola clicked" data-color="cola"></div>
+  </div>
+</div>
+<div class="dmy_grid">&nbsp;</div>
+<!-- /before_join --></div>
+
+
+<div id="user">
+<div id="nickname"><div id="mybox">&nbsp;</div><div class="clear"></div></div>
+<div class="main_grid">
+  <p><label><input type="radio" name="rdo" id="r1" value="r1" checked><span>コメント</span></label>
+  <label><input type="radio" name="rdo" id="r2" value="r2"><span>イラスト</span></label>
+  </p>
+  <div id="use_tw">
+  <textarea maxlength="140" id="tweet" placeholder="コメント(140文字以内)"></textarea>
+  <br>
+  <input type="button" id="tw_btn" value="投稿する" class="btn" />
+  </div>
+  <div id="use_canvas">
+  <canvas id="mycanvas" width="480" height="120">HTML5 Canvas browser required.</canvas>
+  <br>
+  <input type="button" id="can_btn" value="投稿する" class="btn" />
+  <input type="button" id="can_clear_btn" value="キャンバスをクリア" class="btn2" />
+  <!-- /can --></div>
+  
+  <div id="reload_text"><p><a href="#" class="large btn2" id="reload_btn">再読込みする</a></p></div>
+  <hr />
+  <div id="my"></div>
+  
+</div>
+<!-- /user --></div>
+
+<!-- /contents --></div>
+
+<div id="footer" data-role="footer" role="contentinfo">
+<div class="layout-inner">
+<address>copyright&copy;RECRUIT MEDIA COMMUNICATIONS.</address>
+</div>
+<!-- /footer --></div>
+
+<!-- /container --></div>
+</body>
+</html>

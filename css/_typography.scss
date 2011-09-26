@@ -1,0 +1,86 @@
+@charset "UTF-8";
+/* -----------------------------
+  TYPOGRAPHY
+  author:
+  update:
+------------------------------*/
+
+@mixin word-wrap{
+	word-wrap: break-word;//width指定があれば強制的に折り返す
+}
+@mixin wrhite-space{
+	white-space: nowrap;//折り返し禁止
+}
+
+	h1{
+		font-size: $yui-18px;
+		padding-left:0.4em;
+		padding-bottom:0.2em;
+		border-bottom:2px solid $color_main;
+	}
+
+	h2{
+		font-size: $yui-14px;
+		padding-left:0.4em;
+		padding-bottom:0.2em;
+		border-bottom:1px solid $color_main;
+	}
+
+	h3{
+		font-size: $yui-14px;
+		padding-left:0.4em;
+		padding-bottom:0.2em;
+		border-bottom:1px solid #aaa;
+	}
+
+	h4{
+		font-size: $yui-12px;
+		padding-left:0.4em;
+		border-bottom:1px dashed $color_main;
+	}
+
+	h5{
+		font-size: $yui-11px;
+		padding-left:0.4em;
+		border-bottom:1px solid #ccc;
+	}
+
+	h6{
+		font-size: $yui-11px;
+		color: #666;
+	}
+
+
+cite{
+//ダブルコーテーション
+	&:before{
+		content: '\201C';
+	}
+	&:after{
+		content: '\201D';
+	}
+}
+
+.text-right{
+	text-align: right;
+}
+
+.text-center{
+	text-align: center;
+}
+
+.text-medium{
+	font-size:  $yui-14px;
+}
+.text-large{
+	font-size: $yui-18px;
+}
+
+
+.text-gray{
+	color: #7a7a7a;
+}
+.text-red{
+	color: #f03;
+}
+
